@@ -3,6 +3,8 @@ package utb.fai;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -38,7 +40,7 @@ public class App {
             System.err.println("Počet vláken musí být alespoň 1.");
             System.exit(1);
         }
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(max_threads, max_threads, 0L, TimeUnit.MILLISECONDS, new SynchronousQueue<>());
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(max_threads, max_threads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
 
         try (ServerSocket serverSocket = new ServerSocket(port)){
             while (true) {
